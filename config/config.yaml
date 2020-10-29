@@ -1,0 +1,77 @@
+# system config
+system:
+  env: 'public'
+  addr: 8888
+  db-type: 'mysql'
+  single-login: false
+  cache: true
+  cache-type: 'redis'
+
+
+# captcha config
+captcha:
+  length: 4
+  width: 240
+  height: 80
+
+# datasource
+# mysql config
+mysql:
+  uri: '127.0.0.1'
+  port: '13306'
+  charset: 'utf8mb4'
+  db-name: 'gostudy'
+  username: 'root'
+  password: '123456'
+  max-idle-conns: 10
+  max-open-conns: 10
+  log-mode: true
+
+# redis config
+redis:
+  uri: '127.0.0.1'
+  port: '16379'
+  password: ''
+  db: 0
+
+# zap logger configuration
+zap:
+  dir: './runtime/log'
+  level: 'info'
+  format: 'console'
+  prefix: '[Ice-Api]'
+  show-line: true
+  encode-level: 'LowercaseColorLevelEncoder'
+  stacktrace-key: 'stacktrace'
+  log-in-console: true
+
+# permission config
+casbin:
+  model-path: './config/rbac_model.conf'
+
+# report-email config
+email:
+  to: 'xx@qq.com'
+  port: 465
+  from: 'xxx@163.com'
+  host: 'smtp.163.com'
+  ssl: true
+  secret: 'xxx'
+  nickname: 'test'
+
+# custom config
+# safe-md5-salt
+md5salt: '$!@I1u9O9D4e0n9G2H1ui.%^&'
+
+#invite-str
+invitestr: 'HSTA9KLYZUV6OPIJNE54B1FCG32RX87MWQD'
+
+# jwt
+jwt:
+  key: 'aNgElLcE'
+  expire: 60*60*24*7
+  domain: 'https://www.hao123.com'
+
+# snowflake
+snowflake:
+  workid: 1   # snowflake workID make sure every machine have different id
