@@ -7,4 +7,5 @@ type System struct {
 	Singlelogin string `mapstructure:"single-login" json:"singleLogin" yaml:"single-login"`
 	Cache       bool   `mapstructure:"cache" json:"cache" yaml:"cache"`
 	Cachetype   string `mapstructure:"cache-type" json:"cacheType" yaml:"cache-type"`
+	Language    string `mapstructure:"language" json:"language" yaml:"language"`
 }

@@ -15,7 +15,8 @@ const (
 	PermissionsDenied = 10010
 
 	// ROUTER
-	RouteNofound = 10020
+	RouteNofound  = 10020
+	MethodNoAllow = 10021
 
 	// DB
 	DbError = 10030

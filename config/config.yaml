@@ -6,6 +6,7 @@ system:
   single-login: false
   cache: true
   cache-type: 'redis'
+  language: 'zh'     # 可选 zh， en   对应 utils下面的response返回中文或者英文 或者自己可扩展语言
 
 
 # captcha config
