@@ -3,8 +3,8 @@ package v1
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gogf/gf/util/gvalid"
+	adminLogic "ice/app/logic/admin"
 	adminRequest "ice/app/model/request/admin"
-	adminService "ice/app/service/admin"
 	"ice/utils/response"
 )
 
@@ -15,5 +15,5 @@ func LoginByPhone(c *gin.Context) {
 	} else if err := gvalid.CheckStruct(L, nil); err != nil {
 		response.Ret(response.InitErrMsg(err.FirstString()), c)
 	}
-	adminService.LoginByPhone(&L)
+	adminLogic.LoginByPhone(&L)
 }

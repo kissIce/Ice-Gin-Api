@@ -1,0 +1,35 @@
+# 勿用，还没打包发布，后续会打包发布
+version: '1.0'
+services:
+  go:
+    image: angellce/ice-go-api:latest
+    container_name: ice-go-srv
+    environment:
+      - TIMEZONE=Asia/Shanghai
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/var/www/ice-go-api
+  mysql:
+    image: mysql
+    container_name: ice-mysql-srv
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - max_connections=1000
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./runtime/data/mysql:/var/lib/mysql
+  #    restart: always
+
+  redis:
+    container_name: ice-redis-srv
+    image: redis:4-alpine
+    ports:
+      - "16379:6379"
+    sysctls:
+      net.core.somaxconn: 65535
+#    restart: always

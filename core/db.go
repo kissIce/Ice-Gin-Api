@@ -22,7 +22,6 @@ func initDB() {
 		DontSupportRenameColumn:   true,
 		SkipInitializeWithVersion: false,
 	}
-	fmt.Println(sqlUri)
 	gormCfg := config(m.LogMode)
 	if global.IceDb, err = gorm.Open(mysql.New(mysqlCfg), gormCfg); err != nil {
 		fmt.Printf("mysql 链接失败，错误原因：%s\n", err)

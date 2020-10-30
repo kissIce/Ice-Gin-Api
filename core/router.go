@@ -9,10 +9,12 @@ import (
 )
 
 func initRouter() (Router *gin.Engine) {
+	gin.SetMode(gin.ReleaseMode)
 	Router = gin.New()
 	Router.Use(middleware.Cors()).Use(middleware.GinRecovery(true))
-	global.IceLog.Info("use middleware logger")
+	global.IceLog.Info("Use Recovery Middleware")
 	group := Router.Group("")
+	router.InitBase(group) // 初始化基础路由
 	// 注册没命中路由
 	Router.NoRoute(func(c *gin.Context) {
 		response.Ret(response.InitErrCode(response.RouteNofound), c)
@@ -21,6 +23,5 @@ func initRouter() (Router *gin.Engine) {
 	Router.NoMethod(func(c *gin.Context) {
 		response.Ret(response.InitErrCode(response.MethodNoAllow), c)
 	})
-	router.InitBase(group)
 	return Router
 }

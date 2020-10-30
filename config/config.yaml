@@ -70,7 +70,7 @@ invitestr: 'HSTA9KLYZUV6OPIJNE54B1FCG32RX87MWQD'
 # jwt
 jwt:
   key: 'aNgElLcE'
-  expire: 60*60*24*7
+  expire: 604800 # yaml不支持运算 所以提前算好时间
   domain: 'https://www.hao123.com'
 
 # snowflake
