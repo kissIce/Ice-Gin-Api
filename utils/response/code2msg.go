@@ -65,6 +65,16 @@ var RetMsg = map[int]map[string]string{
 		"en" : "Param Error",
 	},
 
+	CaptchaError: {
+		"zh" : "验证码生成失败",
+		"en" : "Captcha Make Fail",
+	},
+
+	CaptchaVerifyFail: {
+		"zh" : "验证码错误",
+		"en" : "Captcha Verify Fail",
+	},
+
 	PayError: {
 		"zh" : "支付错误",
 		"en" : "Pay Error",

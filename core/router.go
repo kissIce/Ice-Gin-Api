@@ -14,7 +14,7 @@ func initRouter() (Router *gin.Engine) {
 	Router.Use(middleware.Cors()).Use(middleware.GinRecovery(true))
 	global.IceLog.Info("Use Recovery Middleware")
 	group := Router.Group("")
-	router.InitBase(group) // 初始化基础路由
+	router.InitAdminBase(group) // 初始化后台基础路由
 	// 注册没命中路由
 	Router.NoRoute(func(c *gin.Context) {
 		response.Ret(response.InitErrCode(response.RouteNofound), c)

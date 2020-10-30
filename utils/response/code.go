@@ -24,8 +24,12 @@ const (
 	// VALIDATE
 	ValidateError = 10040
 
+	CaptchaError = 10050
+
+	CaptchaVerifyFail = 10051
+
 	// PAY
-	PayError = 10050
+	PayError = 10070
 
 	// THIRD
 	ThirdError = 10090
