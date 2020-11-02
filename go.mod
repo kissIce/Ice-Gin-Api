@@ -12,6 +12,7 @@ require (
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/gogf/gf v1.14.2
 	github.com/jehiah/go-strftime v0.0.0-20171201141054-1d33003b3869 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible

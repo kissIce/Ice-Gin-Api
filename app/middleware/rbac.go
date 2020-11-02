@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	adminRequest "ice/app/model/request/admin"
 	"ice/app/service"
@@ -22,7 +21,6 @@ func RbacHandler() gin.HandlerFunc {
 		e := service.Casbin()
 		// 判断策略中是否存在
 		success, _ := e.Enforce(sub, obj, act)
-		fmt.Println(success)
 		if global.IceConfig.System.Env == "develop" || success {
 			c.Next()
 		} else {
