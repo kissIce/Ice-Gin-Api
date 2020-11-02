@@ -6,13 +6,16 @@ const (
 	ApiError   = 99999
 
 	// token
-	TokenMiss         = 10001
-	SignError         = 10002
-	SignBefore        = 10003
-	SignExpire        = 10004
-	SignOther         = 10005
-	SignRefresh       = 10006
-	PermissionsDenied = 10010
+	TokenMiss        = 10001
+	TokenCreateFail  = 10002
+	TokenBefore      = 10003
+	TokenExpire      = 10004
+	TokenRefresh     = 10005
+	TokenBlack       = 10006
+	TokenMalformed   = 10007
+	TokenInvalid     = 10008
+	TokenOther       = 10009
+	PermissionDenied = 10010
 
 	// ROUTER
 	RouteNofound  = 10020

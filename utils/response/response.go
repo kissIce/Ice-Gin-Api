@@ -43,6 +43,7 @@ func InitErrCode(code int) *Resp {
 
 func Ret(resp *Resp, c *gin.Context) {
 	c.JSON(http.StatusOK, &resp)
+	c.Abort()
 }
 
 func resultMsg(code int) string {

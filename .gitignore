@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+.DS_Store
+.env.local
+.env.*.local
+go.sum
+runtime/
+*.iml
+.env

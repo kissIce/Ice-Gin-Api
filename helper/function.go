@@ -41,13 +41,13 @@ func PwdVerify(password, hash string) bool {
 /**
  * 快速缓存
  */
-func Cache(name string, val interface{}, timeout time.Duration) interface{} {
+func Cache(name string, val interface{}, timeout time.Duration) (interface{}, error) {
 	if val == "" {
-		return global.IceRedis.Get(name)
+		return global.IceRedis.Get(name).Result()
 	} else if val == nil {
-		return global.IceRedis.Del(name)
+		return global.IceRedis.Del(name).Result()
 	}
-	return global.IceRedis.Set(name, val, timeout)
+	return global.IceRedis.Set(name, val, timeout).Result()
 }
 
 /**

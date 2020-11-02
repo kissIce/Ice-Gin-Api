@@ -49,6 +49,7 @@ zap:
 # permission config
 casbin:
   model-path: './config/rbac_model.conf'
+  table-name: 'auth_rule'
 
 # report-email config
 email:

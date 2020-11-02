@@ -1,17 +1,10 @@
-package helper
+package service
 
 import (
-	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"ice/global"
+	"ice/utils/response"
 	"time"
-)
-
-var (
-	TokenExpired     = errors.New("token is expired")
-	TokenNotValidYet = errors.New("token not active yet")
-	TokenMalformed   = errors.New("that's not even a token")
-	TokenInvalid     = errors.New("couldn't handle this token")
 )
 
 type JWT struct {
@@ -19,17 +12,19 @@ type JWT struct {
 }
 
 type BaseClaims struct {
-	data interface{}
+	Data interface{}
+	BufferTime int64
 	jwt.StandardClaims
 }
 
-func InitClaims(data interface{}) *BaseClaims {
+func InitClaims(data interface{}, buffertime int64) *BaseClaims {
 	return &BaseClaims{
-		data: data,
+		Data: data,
+		BufferTime: buffertime,
 	}
 }
 
-func (j *JWT) NewJWT() *JWT {
+func NewJWT() *JWT {
 	return &JWT{
 		[]byte(global.IceConfig.JWT.Key),
 	}
@@ -43,30 +38,30 @@ func (j *JWT) CreateToken(claims *BaseClaims) (string, error) {
 	return token.SignedString(j.SigningKey)
 }
 
-func (j *JWT) VerifyToken(tokenString string) (*BaseClaims, error) {
+func (j *JWT) VerifyToken(tokenString string) (*BaseClaims, int) {
 	token, err := jwt.ParseWithClaims(tokenString, &BaseClaims{}, func(token *jwt.Token) (i interface{}, e error) {
 		return j.SigningKey, nil
 	})
 	if err != nil {
 		if ve, ok := err.(*jwt.ValidationError); ok {
 			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-				return nil, TokenMalformed
+				return nil, response.TokenMalformed
 			} else if ve.Errors&jwt.ValidationErrorExpired != 0 {
-				return nil, TokenExpired
+				return nil, response.TokenExpire
 			} else if ve.Errors&jwt.ValidationErrorNotValidYet != 0 {
-				return nil, TokenNotValidYet
+				return nil, response.TokenBefore
 			} else {
-				return nil, TokenInvalid
+				return nil, response.TokenInvalid
 			}
 		}
 	}
 	if token != nil {
 		if claims, ok := token.Claims.(*BaseClaims); ok && token.Valid {
-			return claims, nil
+			return claims, 0
 		}
-		return nil, TokenInvalid
+		return nil, response.TokenInvalid
 	} else {
-		return nil, TokenInvalid
+		return nil, response.TokenInvalid
 	}
 
 }

@@ -15,34 +15,50 @@ var RetMsg = map[int]map[string]string{
 		"en" : "Token Lose",
 	},
 
-	SignError: {
-		"zh" : "token验证失败",
-		"en" : "Token Error",
+	TokenCreateFail: {
+		"zh" : "token签发失败",
+		"en" : "Token Create Fail",
 	},
 
-	SignBefore: {
+	TokenBefore: {
 		"zh" : "token未到可用时间",
 		"en" : "Token Before Use Time",
 	},
 
-	SignExpire: {
+	TokenExpire: {
 		"zh" : "token已过期",
 		"en" : "Token Expire",
 	},
 
-	SignOther: {
-		"zh" : "token错误",
-		"en" : "Token Error",
-	},
 
-	SignRefresh: {
+	TokenRefresh: {
 		"zh" : "token刷新",
 		"en" : "Token Refresh",
 	},
 
-	PermissionsDenied: {
+	TokenBlack: {
+		"zh" : "token无效",
+		"en" : "Token Useless",
+	},
+
+	TokenMalformed: {
+		"zh" : "token格式错误",
+		"en" : "Token Format Error",
+	},
+
+	TokenInvalid: {
+		"zh" : "token验证失败",
+		"en" : "Token Invalid",
+	},
+
+	TokenOther: {
+		"zh" : "token其他错误",
+		"en" : "Token Other Error",
+	},
+
+	PermissionDenied: {
 		"zh" : "权限不足",
-		"en" : "Permissions Denied",
+		"en" : "Permission Denied",
 	},
 
 	RouteNofound: {
