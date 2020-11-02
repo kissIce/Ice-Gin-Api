@@ -61,12 +61,12 @@ var RetMsg = map[int]map[string]string{
 		"en" : "Permission Denied",
 	},
 
-	RouteNofound: {
+	RouteNotfound: {
 		"zh" : "请求地址不存在",
 		"en" : "Address Not Exists",
 	},
 
-	MethodNoAllow: {
+	MethodNotAllow: {
 		"zh" : "请求方法不允许",
 		"en" : "Request Method Now Allow",
 	},

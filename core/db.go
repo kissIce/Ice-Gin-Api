@@ -34,16 +34,15 @@ func initDB() {
 }
 
 func config(b bool) (cfg *gorm.Config) {
+	var loglevel logger.LogLevel
 	if b {
-		cfg = &gorm.Config{
-			Logger:                                   logger.Default.LogMode(logger.Info),
-			DisableForeignKeyConstraintWhenMigrating: true,
-		}
+		loglevel = logger.Info
 	} else {
-		cfg = &gorm.Config{
-			Logger:                                   logger.Default.LogMode(logger.Silent),
-			DisableForeignKeyConstraintWhenMigrating: true,
-		}
+		loglevel = logger.Silent
+	}
+	cfg = &gorm.Config{
+		Logger:                                   logger.Default.LogMode(loglevel),
+		DisableForeignKeyConstraintWhenMigrating: true,
 	}
 	return
 }

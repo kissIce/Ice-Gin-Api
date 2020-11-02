@@ -18,18 +18,18 @@ const (
 	PermissionDenied = 10010
 
 	// ROUTER
-	RouteNofound  = 10020
-	MethodNoAllow = 10021
+	RouteNotfound = 10020
+	MethodNotAllow = 10021
 
 	// DB
 	DbError = 10030
 
 	// VALIDATE
-	ValidateError = 10040
+	ValidateError = 10050
 
-	CaptchaError = 10050
+	CaptchaError = 10060
 
-	CaptchaVerifyFail = 10051
+	CaptchaVerifyFail = 10061
 
 	// PAY
 	PayError = 10070

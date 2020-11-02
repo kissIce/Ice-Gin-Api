@@ -17,11 +17,11 @@ func initRouter() (Router *gin.Engine) {
 	router.InitAdminBase(group) // 初始化后台基础路由
 	// 注册没命中路由
 	Router.NoRoute(func(c *gin.Context) {
-		response.Ret(response.InitErrCode(response.RouteNofound), c)
+		response.Ret(response.InitErrCode(response.RouteNotfound), c)
 	})
 	// 注册方法不允许
 	Router.NoMethod(func(c *gin.Context) {
-		response.Ret(response.InitErrCode(response.MethodNoAllow), c)
+		response.Ret(response.InitErrCode(response.MethodNotAllow), c)
 	})
 	return Router
 }
