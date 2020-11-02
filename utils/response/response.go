@@ -46,6 +46,11 @@ func Ret(resp *Resp, c *gin.Context) {
 	c.Abort()
 }
 
+func RetXml(resp *Resp, c *gin.Context) {
+	c.XML(http.StatusOK, &resp)
+	c.Abort()
+}
+
 func resultMsg(code int) string {
 	if _, ok := RetMsg[code]; ok {
 		return RetMsg[code][global.IceConfig.System.Language]

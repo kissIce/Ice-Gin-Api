@@ -18,10 +18,12 @@ func initRouter() (Router *gin.Engine) {
 	// 注册没命中路由
 	Router.NoRoute(func(c *gin.Context) {
 		response.Ret(response.InitErrCode(response.RouteNotfound), c)
+		return
 	})
 	// 注册方法不允许
 	Router.NoMethod(func(c *gin.Context) {
 		response.Ret(response.InitErrCode(response.MethodNotAllow), c)
+		return
 	})
 	return Router
 }
