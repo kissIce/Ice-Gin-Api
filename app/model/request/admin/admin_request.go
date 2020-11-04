@@ -9,5 +9,9 @@ type LoginAdmin struct {
 }
 
 type RegisterAdmin struct {
-
+	Username string `json:"username" form:"username"`
+	Realname string `json:"realname" form:"realname"`
+	Avatar string `json:"avatar" form:"avatar"`
+	Password string `json:"password" form:"password"`
+	Phone    string `json:"phone" form:"phone"`
 }

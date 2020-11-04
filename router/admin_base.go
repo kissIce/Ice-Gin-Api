@@ -23,23 +23,7 @@ func InitAdminBase(r *gin.RouterGroup) {
 			response.Ret(response.InitSucc(token), c)
 		})
 		Router.Use(middleware.AdminAuth()).Use(middleware.RbacHandler()).GET("captcha",adminV1.Captcha)
-
+		//Router.Use(middleware.AdminAuth()).Use(middleware.RbacHandler()).GET("captcha/:id",adminV1.Captcha)
+		Router.POST("reg_admin", adminV1.RegAdmin)
 	}
-	//Router.GET("jwt", func(c *gin.Context) {
-	//	var JWT helper.JWT
-	//	token, err := JWT.NewJWT().CreateToken(helper.InitClaims(111))
-	//	if err != nil {
-	//		fmt.Println(err)
-	//	}
-	//	response.Ret(response.InitSucc(token), c)
-	//})
-	//Router.GET("jwtverify", func(c *gin.Context) {
-	//	token := c.Query("token")
-	//	var JWT helper.JWT
-	//	claims, err := JWT.NewJWT().VerifyToken(token)
-	//	if err != nil {
-	//
-	//	}
-	//	response.Ret(response.InitSucc(claims), c)
-	//})
 }
