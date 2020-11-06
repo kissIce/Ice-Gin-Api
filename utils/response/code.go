@@ -28,9 +28,8 @@ const (
 	ValidateError = 10050
 
 	CaptchaError = 10060
-
 	CaptchaVerifyFail = 10061
-
+	SmsVerifyFail = 10062
 	// PAY
 	PayError = 10070
 

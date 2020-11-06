@@ -1,10 +1,12 @@
 package response
 
 var RetMsg = map[int]map[string]string{
+
 	ApiSuccess: {
 		"zh" : "请求成功",
 		"en" : "Request Success",
 	},
+
 	ApiError: {
 		"zh" : "请求失败",
 		"en" : "Request Fail",
@@ -29,7 +31,6 @@ var RetMsg = map[int]map[string]string{
 		"zh" : "token已过期",
 		"en" : "Token Expire",
 	},
-
 
 	TokenRefresh: {
 		"zh" : "token刷新",
@@ -87,8 +88,13 @@ var RetMsg = map[int]map[string]string{
 	},
 
 	CaptchaVerifyFail: {
-		"zh" : "验证码错误",
+		"zh" : "图文验证码错误",
 		"en" : "Captcha Verify Fail",
+	},
+
+	SmsVerifyFail: {
+		"zh" : "短信验证码错误",
+		"en" : "Sms Verify Fail",
 	},
 
 	PayError: {

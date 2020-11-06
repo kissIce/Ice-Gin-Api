@@ -32,7 +32,7 @@ func initDB() {
 		db, _ := global.IceDb.DB()
 		db.SetMaxIdleConns(m.MaxIdleConns)
 		db.SetMaxOpenConns(m.MaxOpenConns)
-		initTable()
+		//initTable()
 	}
 }
 

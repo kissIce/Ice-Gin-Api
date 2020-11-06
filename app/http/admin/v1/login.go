@@ -24,7 +24,8 @@ func RegAdmin(c *gin.Context)  {
 	var r adminRequest.RegisterAdmin
 	if err := c.ShouldBind(&r); err != nil {
 		response.Ret(response.InitErrMsg(err.Error()), c)
-	} else if err := gvalid.CheckStruct(r, nil); err != nil {
+	}
+	if err := gvalid.CheckStruct(r, nil); err != nil {
 		response.Ret(response.InitErrMsg(err.FirstString()), c)
 	}
 	m := &entity.Admin{
@@ -39,7 +40,7 @@ func RegAdmin(c *gin.Context)  {
 	if err != nil {
 		response.Ret(response.InitErr(), c)
 	} else {
-		response.Ret(response.InitSucc(map[string]uint64{"id": id}), c)
+		response.Ret(response.InitSucc(gin.H{"id": id}), c)
 	}
 }
 
@@ -48,5 +49,5 @@ func Captcha(c *gin.Context)  {
 	if err != nil {
 		response.Ret(response.InitErrCode(response.CaptchaError), c)
 	}
-	response.Ret(response.InitSucc(&map[string]string{"id": id, "img": img}), c)
+	response.Ret(response.InitSucc(gin.H{"id": id, "img": img}), c)
 }
