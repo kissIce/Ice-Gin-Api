@@ -6,9 +6,10 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
-	"ice/app/model/entity"
 	"ice/global"
+	"io"
 	"os"
+	"strings"
 )
 
 var err error
@@ -32,7 +33,7 @@ func initDB() {
 		db, _ := global.IceDb.DB()
 		db.SetMaxIdleConns(m.MaxIdleConns)
 		db.SetMaxOpenConns(m.MaxOpenConns)
-		//initTable()
+		initStruct()
 	}
 }
 
@@ -56,12 +57,92 @@ func config(b bool) (cfg *gorm.Config) {
 	return
 }
 
-func initTable() {
-	err = global.IceDb.AutoMigrate(
-		entity.Api{},
-		entity.Menu{},
-		entity.Role{},
-		entity.AuthMenu{},
-		entity.Admin{},
-	)
+
+type column struct {
+	name string
+	data_type string
+}
+
+func initStruct()  {
+	sql_str := "SELECT `COLUMN_NAME`,`DATA_TYPE`,`TABLE_NAME` FROM `information_schema`.`COLUMNS` WHERE `TABLE_SCHEMA` = ? ORDER BY `TABLE_NAME` ASC,`ORDINAL_POSITION` ASC"
+	rows, _ := global.IceDb.Raw(sql_str, global.IceConfig.Mysql.Dbname).Rows()
+	defer rows.Close()
+	var tableColumns  = make(map[string][]column)
+	var tableList []string
+	for rows.Next() {
+		var column_name,data_type,table string
+		err := rows.Scan(&column_name,&data_type,&table)
+		if err != nil {
+			panic("GetAllTable Scan error:"+err.Error())
+		}
+		item := column{
+			column_name,
+			data_type,
+		}
+		if len(tableColumns[table]) < 1 {
+			tableList = append(tableList,table)
+		}
+		tableColumns[table] = append(tableColumns[table],item)
+	}
+	for _,table := range tableList {
+		structContent := "package entity\n\ntype "+ HumpFormat(table) +" struct {\n  Model"
+		var param  []interface{}
+		for _,column := range tableColumns[table] {
+			if column.name == "id" || column.name == "created_at" || column.name == "updated_at" || column.name == "deleted_at" {
+				continue
+			}
+			type_str := mysqlType(column.data_type)
+			param = append(param,HumpFormat(column.name),type_str,column.name,column.name)
+			structContent += "\n"+
+				"  %s %s `json:\"%s\" form:\"%s\"`"
+		}
+		structContent += "\n}"
+		fileContent := fmt.Sprintf(structContent,param...)
+		file,_ := os.Create("./app/model/entity/" + table + ".go")
+		defer file.Close()
+		_,err = io.WriteString(file, fileContent)
+	}
+}
+
+func mysqlType(data_type string) string {
+	var res string
+	switch strings.ToUpper(data_type) {
+	case "TINYINT","SMALLINT","MEDIUMINT","INT","BIGINT","INTEGER":
+		res = "int64"
+	case "FLOAT","DOUBLE","DECIMAL":
+		res = "float64"
+	default:
+		res = "string"
+	}
+	return  res
+}
+
+//驼峰格式
+func HumpFormat(str string) string {
+	var res string
+	ary := strings.Split(str,"_")
+	for _,v := range ary {
+		res += Capitalize(v)
+	}
+	return res
+}
+
+//首字母大写
+func Capitalize(str string) string {
+	var upperStr string
+	vv := []rune(str)
+	for i := 0; i < len(vv); i++ {
+		if i == 0 {
+			if vv[i] >= 97 && vv[i] <= 122 {
+				vv[i] -= 32 // string的码表相差32位
+				upperStr += string(vv[i])
+			} else {
+				fmt.Println("Not begins with lowercase letter,")
+				return str
+			}
+		} else {
+			upperStr += string(vv[i])
+		}
+	}
+	return upperStr
 }

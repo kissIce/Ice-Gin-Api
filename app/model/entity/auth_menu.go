@@ -1,6 +1,7 @@
 package entity
 
 type AuthMenu struct {
-	MenuId uint64 `gorm:"comment:菜单id;"`
-	RoleId uint64 `gorm:"comment:角色id;"`
+  Model
+  MenuId int64 `json:"menu_id" form:"menu_id"`
+  RoleId int64 `json:"role_id" form:"role_id"`
 }
