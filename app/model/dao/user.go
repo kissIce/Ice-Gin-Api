@@ -10,5 +10,5 @@ func GetUserByPhone(u *entity.User) error {
 }
 
 func CreateUser(u *entity.User) error {
-	return global.IceDb.Create(u).Error
+	return global.IceDb.Create(&u).Error
 }
