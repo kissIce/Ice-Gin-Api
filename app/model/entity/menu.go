@@ -8,8 +8,8 @@ type Menu struct {
   Icon string `json:"icon" form:"icon"`
   Path string `json:"path" form:"path"`
   Component string `json:"component" form:"component"`
-  KeepAlive int64 `json:"keep_alive" form:"keep_alive"`
-  Hidden int64 `json:"hidden" form:"hidden"`
-  Sort int64 `json:"sort" form:"sort"`
-  Default int64 `json:"default" form:"default"`
+  KeepAlive int8 `json:"keep_alive" form:"keep_alive"`
+  Hidden int8 `json:"hidden" form:"hidden"`
+  Sort int16 `json:"sort" form:"sort"`
+  Default int8 `json:"default" form:"default"`
 }

@@ -15,7 +15,7 @@ type Comment struct {
   Cid int64 `json:"cid" form:"cid"`
   Cuid int64 `json:"cuid" form:"cuid"`
   Ccontent string `json:"ccontent" form:"ccontent"`
-  IsRead int64 `json:"is_read" form:"is_read"`
+  IsRead int8 `json:"is_read" form:"is_read"`
   Support int64 `json:"support" form:"support"`
   Comment int64 `json:"comment" form:"comment"`
 }

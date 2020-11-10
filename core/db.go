@@ -33,7 +33,7 @@ func initDB() {
 		db, _ := global.IceDb.DB()
 		db.SetMaxIdleConns(m.MaxIdleConns)
 		db.SetMaxOpenConns(m.MaxOpenConns)
-		initStruct()
+		//initStruct()
 	}
 }
 
@@ -107,7 +107,13 @@ func initStruct()  {
 func mysqlType(data_type string) string {
 	var res string
 	switch strings.ToUpper(data_type) {
-	case "TINYINT","SMALLINT","MEDIUMINT","INT","BIGINT","INTEGER":
+	case "TINYINT":
+		res = "int8"
+	case "SMALLINT":
+		res = "int16"
+	case "MEDIUMINT","INT","INTEGER":
+		res = "int32"
+	case "BIGINT":
 		res = "int64"
 	case "FLOAT","DOUBLE","DECIMAL":
 		res = "float64"

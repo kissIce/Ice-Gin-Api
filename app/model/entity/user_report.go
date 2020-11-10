@@ -13,6 +13,6 @@ type UserReport struct {
   Domain string `json:"domain" form:"domain"`
   Img string `json:"img" form:"img"`
   Content string `json:"content" form:"content"`
-  Status int64 `json:"status" form:"status"`
-  Do int64 `json:"do" form:"do"`
+  Status int8 `json:"status" form:"status"`
+  Do int8 `json:"do" form:"do"`
 }

@@ -42,7 +42,7 @@ zap:
   format: 'console'
   prefix: '[Ice-Api]'
   show-line: true
-  encode-level: 'LowercaseColorLevelEncoder'
+  encode-level: 'LowercaseLevelEncoder'
   stacktrace-key: 'stacktrace'
   log-in-console: true
 

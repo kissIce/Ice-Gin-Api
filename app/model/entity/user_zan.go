@@ -11,5 +11,5 @@ type UserZan struct {
   Tcid int64 `json:"tcid" form:"tcid"`
   Tcuid int64 `json:"tcuid" form:"tcuid"`
   Tccontent string `json:"tccontent" form:"tccontent"`
-  IsRead int64 `json:"is_read" form:"is_read"`
+  IsRead int8 `json:"is_read" form:"is_read"`
 }

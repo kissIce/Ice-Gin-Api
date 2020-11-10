@@ -6,7 +6,7 @@ type AppUpdate struct {
   Version string `json:"version" form:"version"`
   Title string `json:"title" form:"title"`
   Info string `json:"info" form:"info"`
-  Force int64 `json:"force" form:"force"`
+  Force int8 `json:"force" form:"force"`
   DownloadUrl string `json:"download_url" form:"download_url"`
-  Status int64 `json:"status" form:"status"`
+  Status int8 `json:"status" form:"status"`
 }

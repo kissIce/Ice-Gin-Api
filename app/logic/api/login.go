@@ -1,12 +1,27 @@
 package api
 
 import (
-	"ice/app/model/request/api"
+	"errors"
+	"gorm.io/gorm"
+	"ice/app/model/dao"
+	"ice/app/model/entity"
+	"ice/utils/response"
 )
 
-func LoginByPhone(r api.LoginUserPhone)  {
-	//cacheCode, _ := helper.Cache("loginPhoneCode" + r.Phone, "", 0)
-	//if r.Code != cacheCode {
-	//	response.Ret(response.InitErrCode(response.SmsVerifyFail), c)
-	//}
+func LoginByPhone(m *entity.User) *response.Resp {
+	err := dao.GetUserByPhone(m)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+
+		} else {
+			return response.InitErrCode(response.DbError)
+		}
+	}
+	if m.DeletedAt > 0 {
+		return response.InitErrMsg("用户已被删除")
+	}
+	if m.Status > 0 {
+		return response.InitErrMsg("用户已被删除")
+	}
+	return response.InitSucc(m)
 }

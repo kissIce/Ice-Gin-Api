@@ -8,6 +8,6 @@ type WishUpdate struct {
   Img string `json:"img" form:"img"`
   Intro string `json:"intro" form:"intro"`
   Info string `json:"info" form:"info"`
-  Num int64 `json:"num" form:"num"`
-  Status int64 `json:"status" form:"status"`
+  Num int8 `json:"num" form:"num"`
+  Status int8 `json:"status" form:"status"`
 }
