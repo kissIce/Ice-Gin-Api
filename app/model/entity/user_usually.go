@@ -1,7 +1,7 @@
 package entity
 
 type UserUsually struct {
-  Model
+ 
   Uid int64 `json:"uid" form:"uid"`
   UsuallyIp string `json:"usually_ip" form:"usually_ip"`
   UsuallyPlatform string `json:"usually_platform" form:"usually_platform"`

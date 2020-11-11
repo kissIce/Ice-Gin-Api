@@ -1,8 +1,11 @@
 package entity
 
 type Api struct {
-  Model
-  Group string `json:"group" form:"group"`
-  Path string `json:"path" form:"path"`
-  Method string `json:"method" form:"method"`
+	Id        uint64 `json:"id" form:"id" gorm:"primarykey"`
+	Group     string `json:"group" form:"group"`
+	Path      string `json:"path" form:"path"`
+	Method    string `json:"method" form:"method"`
+	CreatedAt uint32 `json:"created_at" form:"created_at" gorm:"autoCreateTime;default:0;comment:添加时间"`
+	UpdatedAt uint32 `json:"updated_at" form:"updated_at" gorm:"autoCreateTime;default:0;comment:添加时间"`
+	DeletedOn uint32 `json:"deleted_on" form:"deleted_on" gorm:"default:0;comment:删除时间"`
 }

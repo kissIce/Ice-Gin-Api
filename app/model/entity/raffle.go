@@ -1,7 +1,8 @@
 package entity
 
 type Raffle struct {
-  Model
+ 
+  Id int32 `json:"id" form:"id"`
   Uid int32 `json:"uid" form:"uid"`
   Uname string `json:"uname" form:"uname"`
   Uavatar string `json:"uavatar" form:"uavatar"`
@@ -13,4 +14,7 @@ type Raffle struct {
   PrizeVal int32 `json:"prize_val" form:"prize_val"`
   Status int8 `json:"status" form:"status"`
   IsThank int8 `json:"is_thank" form:"is_thank"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
+  UpdatedAt int32 `json:"updated_at" form:"updated_at"`
+  DeletedAt int32 `json:"deleted_at" form:"deleted_at"`
 }

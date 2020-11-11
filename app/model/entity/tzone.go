@@ -1,7 +1,8 @@
 package entity
 
 type Tzone struct {
-  Model
+ 
+  Id int64 `json:"id" form:"id"`
   Uid int64 `json:"uid" form:"uid"`
   Content string `json:"content" form:"content"`
   Domain string `json:"domain" form:"domain"`
@@ -23,4 +24,7 @@ type Tzone struct {
   LastRuid string `json:"last_ruid" form:"last_ruid"`
   LastRavatar string `json:"last_ravatar" form:"last_ravatar"`
   StickAt int32 `json:"stick_at" form:"stick_at"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
+  UpdatedAt int32 `json:"updated_at" form:"updated_at"`
+  DeletedAt int32 `json:"deleted_at" form:"deleted_at"`
 }

@@ -33,7 +33,7 @@ func initDB() {
 		db, _ := global.IceDb.DB()
 		db.SetMaxIdleConns(m.MaxIdleConns)
 		db.SetMaxOpenConns(m.MaxOpenConns)
-		//initStruct()
+		initStruct()
 	}
 }
 
@@ -85,12 +85,12 @@ func initStruct()  {
 		tableColumns[table] = append(tableColumns[table],item)
 	}
 	for _,table := range tableList {
-		structContent := "package entity\n\ntype "+ HumpFormat(table) +" struct {\n  Model"
+		structContent := "package entity\n\ntype "+ HumpFormat(table) +" struct {\n "
 		var param  []interface{}
 		for _,column := range tableColumns[table] {
-			if column.name == "id" || column.name == "created_at" || column.name == "updated_at" || column.name == "deleted_at" {
-				continue
-			}
+			//if column.name == "id" || column.name == "created_at" || column.name == "updated_at" || column.name == "deleted_at" {
+			//	continue
+			//}
 			type_str := mysqlType(column.data_type)
 			param = append(param,HumpFormat(column.name),type_str,column.name,column.name)
 			structContent += "\n"+

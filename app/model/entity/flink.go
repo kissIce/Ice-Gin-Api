@@ -1,7 +1,8 @@
 package entity
 
 type Flink struct {
-  Model
+ 
+  Id int16 `json:"id" form:"id"`
   Name string `json:"name" form:"name"`
   Img string `json:"img" form:"img"`
   Url string `json:"url" form:"url"`

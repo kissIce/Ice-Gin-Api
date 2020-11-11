@@ -1,7 +1,8 @@
 package entity
 
 type MsgModel struct {
-  Model
+ 
+  Id int32 `json:"id" form:"id"`
   Type int8 `json:"type" form:"type"`
   Tpl string `json:"tpl" form:"tpl"`
   Content string `json:"content" form:"content"`

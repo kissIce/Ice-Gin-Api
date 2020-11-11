@@ -1,7 +1,7 @@
 package entity
 
 type User struct {
-  Model
+  Id uint64 `json:"id" form:"id"`
   Username string `json:"username" form:"username"`
   TzoneImg string `json:"tzone_img" form:"tzone_img"`
   Avatar string `json:"avatar" form:"avatar"`
@@ -19,5 +19,8 @@ type User struct {
   Vip int8 `json:"vip" form:"vip"`
   RecomId int64 `json:"recom_id" form:"recom_id"`
   Status int8 `json:"status" form:"status"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
+  UpdatedAt int32 `json:"updated_at" form:"updated_at"`
+  DeletedAt int32 `json:"deleted_at" form:"deleted_at"`
   Channel int32 `json:"channel" form:"channel"`
 }

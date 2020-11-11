@@ -1,7 +1,8 @@
 package entity
 
 type UserCoupons struct {
-  Model
+ 
+  Id int64 `json:"id" form:"id"`
   Uid int64 `json:"uid" form:"uid"`
   Cid int64 `json:"cid" form:"cid"`
   CouponSn string `json:"coupon_sn" form:"coupon_sn"`
@@ -15,4 +16,7 @@ type UserCoupons struct {
   CouponEndTime int32 `json:"coupon_end_time" form:"coupon_end_time"`
   CouponRemark string `json:"coupon_remark" form:"coupon_remark"`
   Status int8 `json:"status" form:"status"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
+  UpdatedAt int32 `json:"updated_at" form:"updated_at"`
+  DeletedAt int32 `json:"deleted_at" form:"deleted_at"`
 }

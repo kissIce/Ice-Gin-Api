@@ -1,7 +1,8 @@
 package entity
 
 type Prize struct {
-  Model
+ 
+  Id int32 `json:"id" form:"id"`
   ActivityId int32 `json:"activity_id" form:"activity_id"`
   Type int8 `json:"type" form:"type"`
   TypeField string `json:"type_field" form:"type_field"`
@@ -13,4 +14,7 @@ type Prize struct {
   Level int8 `json:"level" form:"level"`
   Percent int8 `json:"percent" form:"percent"`
   Ordid int32 `json:"ordid" form:"ordid"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
+  UpdatedAt int32 `json:"updated_at" form:"updated_at"`
+  DeletedAt int32 `json:"deleted_at" form:"deleted_at"`
 }

@@ -1,7 +1,8 @@
 package entity
 
 type UserAssetLog struct {
-  Model
+ 
+  Id int64 `json:"id" form:"id"`
   Uid int64 `json:"uid" form:"uid"`
   Tuid int64 `json:"tuid" form:"tuid"`
   SourceId int64 `json:"source_id" form:"source_id"`
@@ -12,4 +13,5 @@ type UserAssetLog struct {
   BeforeVal float64 `json:"before_val" form:"before_val"`
   Money float64 `json:"money" form:"money"`
   Remark string `json:"remark" form:"remark"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
 }

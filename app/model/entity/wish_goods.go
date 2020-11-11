@@ -1,7 +1,8 @@
 package entity
 
 type WishGoods struct {
-  Model
+ 
+  Id int64 `json:"id" form:"id"`
   Wid int64 `json:"wid" form:"wid"`
   Uid int64 `json:"uid" form:"uid"`
   Name string `json:"name" form:"name"`
@@ -15,4 +16,7 @@ type WishGoods struct {
   SalerNum int32 `json:"saler_num" form:"saler_num"`
   UserLimit int32 `json:"user_limit" form:"user_limit"`
   PlanDate string `json:"plan_date" form:"plan_date"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
+  UpdatedAt int32 `json:"updated_at" form:"updated_at"`
+  DeletedAt int32 `json:"deleted_at" form:"deleted_at"`
 }

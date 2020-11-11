@@ -11,9 +11,10 @@ import (
 	"ice/utils/response"
 )
 
+var err error
+
 func LoginByPhone(u *entity.User) *response.Resp {
-	//err := dao.GetUserByPhone(m)
-	err := data.GetUserByPhone(u)
+	u, err = data.GetUserByPhone(u.Phone)
 	if err != nil {
 		if !errors.Is(err, gorm.ErrRecordNotFound) {
 			return response.InitErrCode(response.DbError)

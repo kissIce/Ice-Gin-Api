@@ -1,7 +1,8 @@
 package entity
 
 type Wish struct {
-  Model
+ 
+  Id int64 `json:"id" form:"id"`
   Uid int64 `json:"uid" form:"uid"`
   Title string `json:"title" form:"title"`
   Intro string `json:"intro" form:"intro"`
@@ -26,5 +27,8 @@ type Wish struct {
   Status int8 `json:"status" form:"status"`
   Reason string `json:"reason" form:"reason"`
   AuditTime int32 `json:"audit_time" form:"audit_time"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
+  UpdatedAt int32 `json:"updated_at" form:"updated_at"`
+  DeletedAt int32 `json:"deleted_at" form:"deleted_at"`
   StickAt int32 `json:"stick_at" form:"stick_at"`
 }

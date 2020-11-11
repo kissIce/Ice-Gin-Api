@@ -1,7 +1,8 @@
 package entity
 
 type WishSupport struct {
-  Model
+ 
+  Id int64 `json:"id" form:"id"`
   OrderSn string `json:"order_sn" form:"order_sn"`
   Wid int64 `json:"wid" form:"wid"`
   Wuid int64 `json:"wuid" form:"wuid"`
@@ -27,4 +28,7 @@ type WishSupport struct {
   ExpressName string `json:"express_name" form:"express_name"`
   ExpressCode string `json:"express_code" form:"express_code"`
   ExpressSn string `json:"express_sn" form:"express_sn"`
+  CreatedAt int32 `json:"created_at" form:"created_at"`
+  UpdatedAt int32 `json:"updated_at" form:"updated_at"`
+  DeletedAt int32 `json:"deleted_at" form:"deleted_at"`
 }
