@@ -31,7 +31,7 @@ func LoginByPhone(u *entity.User) *response.Resp {
 	}
 	// 创建JWT
 	var jwt service.JWT
-	token, _ := jwt.CreateToken(service.InitClaims(gin.H{"id": u.ID}, 3*24*3600))
+	token, _ := jwt.CreateToken(service.InitClaims(gin.H{"id": u.Id}, 3*24*3600))
 	return response.InitSucc(token)
 }
 

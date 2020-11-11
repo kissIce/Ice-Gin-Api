@@ -26,7 +26,7 @@ func AddAdmin(admin *entity.Admin) (error, uint64) {
 	}
 	admin.Password = helper.PwdHash(admin.Password)
 	err = global.IceDb.Create(&admin).Error
-	return err, admin.ID
+	return err, admin.Id
 }
 
 func PhoneWhere(phone string) func (db *gorm.DB) *gorm.DB {

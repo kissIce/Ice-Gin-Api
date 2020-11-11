@@ -11,5 +11,5 @@ func LoginByPhone(admin *entity.Admin) {
 
 func RegAdmin(admin *entity.Admin) (err error, id uint64) {
 	err, id = dao.AddAdmin(admin)
-	return err, admin.ID
+	return err, admin.Id
 }

@@ -7,6 +7,7 @@ import (
 	"ice/app/model/entity"
 	adminRequest "ice/app/model/request/admin"
 	"ice/app/service"
+	"ice/global"
 	"ice/utils/response"
 )
 
@@ -42,6 +43,17 @@ func RegAdmin(c *gin.Context)  {
 	} else {
 		response.Ret(response.InitSucc(gin.H{"id": id}), c)
 	}
+}
+
+func DelAdmin(c *gin.Context)  {
+	var admin entity.Admin
+	global.IceDb.Where("id = ?", 1).Delete(&admin)
+}
+
+func SelAdmin(c *gin.Context)  {
+	var admin []entity.Admin
+	global.IceDb.Find(&admin)
+	response.Ret(response.InitSucc(gin.H{"id": admin}), c)
 }
 
 func Captcha(c *gin.Context)  {

@@ -24,8 +24,10 @@ func InitAdminBase(r *gin.RouterGroup) {
 			response.Ret(response.InitSucc(token), c)
 		})
 		Router.POST("login", apiV1.LoginByPhone)
+		Router.POST("reg_admin", adminV1.RegAdmin)
+		Router.POST("del_admin", adminV1.DelAdmin)
+		Router.POST("get_admin", adminV1.SelAdmin)
 		Router.Use(middleware.AdminAuth()).Use(middleware.RbacHandler()).GET("captcha",adminV1.Captcha)
 		//Router.Use(middleware.AdminAuth()).Use(middleware.RbacHandler()).GET("captcha/:id",adminV1.Captcha)
-		Router.POST("reg_admin", adminV1.RegAdmin)
 	}
 }
