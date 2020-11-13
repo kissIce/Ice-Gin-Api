@@ -2,24 +2,22 @@ package api
 
 import (
 	"errors"
-	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
-	"ice/app/model/dao"
 	"ice/app/model/data"
 	"ice/app/model/entity"
-	"ice/app/service"
 	"ice/utils/response"
 )
 
 var err error
 
 func LoginByPhone(u *entity.User) *response.Resp {
-	u, err = data.GetUserByPhone(u.Phone)
+	var ret map[string]interface{}
+	ret, err = data.GetUserByPhone(u.Phone, []string{"phone", "id", "sex", "age"})
 	if err != nil {
 		if !errors.Is(err, gorm.ErrRecordNotFound) {
 			return response.InitErrCode(response.DbError)
 		}
-		if err := dao.CreateUser(u);err != nil {
+		if err := data.CreateUser(u);err != nil {
 			return response.InitErrCode(response.DbError)
 		}
 		// 注册im账号
@@ -30,8 +28,8 @@ func LoginByPhone(u *entity.User) *response.Resp {
 		}
 	}
 	// 创建JWT
-	var jwt service.JWT
-	token, _ := jwt.CreateToken(service.InitClaims(gin.H{"id": u.Id}, 3*24*3600))
-	return response.InitSucc(token)
+	//var jwt service.JWT
+	//token, _ := jwt.CreateToken(service.InitClaims(gin.H{"id": u.Id}, 3*24*3600))
+	return response.InitSucc(ret)
 }
 
