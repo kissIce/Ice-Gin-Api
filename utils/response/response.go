@@ -55,9 +55,5 @@ func resultMsg(code int) string {
 	if _, ok := RetMsg[code]; ok {
 		return RetMsg[code][global.IceConfig.System.Language]
 	}
-	if code == ApiSuccess {
-		return RetMsg[ApiSuccess][global.IceConfig.System.Language]
-	} else {
-		return RetMsg[ApiError][global.IceConfig.System.Language]
-	}
+	return RetMsg[ApiError][global.IceConfig.System.Language]
 }

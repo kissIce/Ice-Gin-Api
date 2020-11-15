@@ -11,7 +11,7 @@ import (
 func initRouter() (Router *gin.Engine) {
 	gin.SetMode(gin.ReleaseMode)
 	Router = gin.New()
-	Router.Use(middleware.Cors()).Use(middleware.RequestId()).Use(middleware.GinRecovery(false))
+	Router.Use(middleware.Cors()).Use(middleware.RequestId()).Use(middleware.ParamAuth()).Use(middleware.GinRecovery(false))
 	global.IceLog.Info("Use Recovery Middleware")
 	group := Router.Group("")
 	router.InitAdminBase(group) // 初始化后台基础路由

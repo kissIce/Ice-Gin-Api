@@ -18,18 +18,26 @@ const (
 	PermissionDenied = 10010
 
 	// ROUTER
-	RouteNotfound = 10020
+	RouteNotfound  = 10020
 	MethodNotAllow = 10021
 
 	// DB
 	DbError = 10030
 
+	// PARAM
+	ParamSignMiss     = 10040
+	ParamSignLenErr   = 10041
+	ParamSignNotEq    = 10042
+	ParamTimeMiss     = 10043
+	ParamTimeOutUse   = 10044
+	ParamNonceStrMiss = 10045
+
 	// VALIDATE
 	ValidateError = 10050
 
-	CaptchaError = 10060
+	CaptchaError      = 10060
 	CaptchaVerifyFail = 10061
-	SmsVerifyFail = 10062
+	SmsVerifyFail     = 10062
 	// PAY
 	PayError = 10070
 

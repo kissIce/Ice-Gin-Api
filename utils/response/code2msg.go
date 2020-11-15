@@ -77,6 +77,36 @@ var RetMsg = map[int]map[string]string{
 		"en" : "DataBase Error",
 	},
 
+	ParamSignMiss: {
+		"zh" : "参数签名缺失",
+		"en" : "param sign miss",
+	},
+
+	ParamSignLenErr: {
+		"zh" : "参数签名长度错误",
+		"en" : "param sign len error",
+	},
+
+	ParamSignNotEq: {
+		"zh" : "参数签名错误",
+		"en" : "param sign Error",
+	},
+
+	ParamTimeMiss: {
+		"zh" : "参数timestamp缺失",
+		"en" : "param timestamp miss",
+	},
+
+	ParamTimeOutUse: {
+		"zh" : "参数timestamp超出安全阈值",
+		"en" : "param timestamp out of use",
+	},
+
+	ParamNonceStrMiss: {
+		"zh" : "参数nonce_str缺失",
+		"en" : "param nonce_str miss",
+	},
+
 	ValidateError: {
 		"zh" : "参数错误",
 		"en" : "Param Error",
