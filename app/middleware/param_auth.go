@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"ice/utils/response"
 	"net/url"
+	"strconv"
 	"time"
 )
 
@@ -27,22 +28,23 @@ func ParamAuth() gin.HandlerFunc {
 }
 
 func checkParam(data url.Values) int {
-	sign, isSetSign := data["sign"]
-	timestamp, isSetTime := data["timestamp"]
-	if !isSetSign {
+	sign := data.Get("sign")
+	timestamp := data.Get("timestamp")
+	if sign == "" {
 		return response.ParamSignMiss
 	}
 	if len(sign) < 32 {
 		return response.ParamSignLenErr
 	}
-	if !isSetTime {
+	if timestamp == "" {
 		return response.ParamTimeMiss
 	}
-	if (timestamp[0]).(int64) > time.Now().Unix() {
-
+	reqTime, _ := strconv.ParseInt(timestamp, 10, 64)
+	if reqTime > time.Now().Unix() {
+		return response.ParamTimeOutUse
 	}
-	if sign[0] != createSign(data) {
-		return response.PermissionDenied
+	if sign != createSign(data) {
+		return response.ParamSignNotEq
 	}
 	return 0
 }
