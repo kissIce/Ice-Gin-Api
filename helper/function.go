@@ -8,6 +8,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"ice/global"
 	"math"
+	"math/rand"
 	"os"
 	"reflect"
 	"strconv"
@@ -132,6 +133,11 @@ func CreateDir(dirs ...string) (err error) {
 		}
 	}
 	return err
+}
+
+func RandInt(n int) int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(n)
 }
 
 func Struct2Map(obj interface{}) map[string]interface{} {

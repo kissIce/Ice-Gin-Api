@@ -107,6 +107,16 @@ var RetMsg = map[int]map[string]string{
 		"en" : "param nonce_str miss",
 	},
 
+	ParamNonceStrLenErr: {
+		"zh" : "参数nonce_str长度错误",
+		"en" : "param nonce_str len error",
+	},
+
+	ParamNonceStrRepeat: {
+		"zh" : "请求重复",
+		"en" : "request repeat",
+	},
+
 	ValidateError: {
 		"zh" : "参数错误",
 		"en" : "Param Error",

@@ -25,12 +25,14 @@ const (
 	DbError = 10030
 
 	// PARAM
-	ParamSignMiss     = 10040
-	ParamSignLenErr   = 10041
-	ParamSignNotEq    = 10042
-	ParamTimeMiss     = 10043
-	ParamTimeOutUse   = 10044
-	ParamNonceStrMiss = 10045
+	ParamSignMiss       = 10040
+	ParamSignLenErr     = 10041
+	ParamSignNotEq      = 10042
+	ParamTimeMiss       = 10043
+	ParamTimeOutUse     = 10044
+	ParamNonceStrMiss   = 10045
+	ParamNonceStrLenErr = 10046
+	ParamNonceStrRepeat = 10047
 
 	// VALIDATE
 	ValidateError = 10050

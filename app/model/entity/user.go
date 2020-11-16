@@ -1,10 +1,10 @@
 package entity
 
 type User struct {
-	Id        uint64 `json:"id" form:"id" gorm:"primarykey"`
+	Id        uint64 `json:"id" form:"id" gorm:"primary_key"`
 	Username  string `json:"username" form:"username"`
 	TzoneImg  string `json:"tzone_img" form:"tzone_img"`
-	Avatar    string `json:"avatar" form:"avatar"`
+	Avatar    string `json:"avatar" form:"avatar" gorm:"default:http://btskimg.91tjh.net/img/mine/avatar.png"`
 	Sex       int8   `json:"sex" form:"sex"`
 	Age       int8   `json:"age" form:"age"`
 	Phone     string `json:"phone" form:"phone"`

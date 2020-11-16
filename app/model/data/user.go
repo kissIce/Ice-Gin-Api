@@ -8,7 +8,6 @@ import (
 	"ice/app/model/entity"
 	"ice/global"
 	"ice/helper"
-	"math/rand"
 	"strconv"
 	"time"
 )
@@ -26,7 +25,7 @@ func GetUserByPhone(phone string, field []string) (ret map[string]interface{}, e
 		if errors.Is(err, redis.Nil) {
 			ret, err = cacheUser(map[string]interface{}{"phone": phone}, append(field, "id"))
 			if err != nil {
-				global.IceRedis.Set(phone2UidKey+phone, 0, time.Duration(rand.Intn(20)+20)*time.Second)
+				global.IceRedis.Set(phone2UidKey+phone, 0, time.Duration(helper.RandInt(20)+20)*time.Second)
 			} else {
 				global.IceRedis.Set(phone2UidKey+phone, ret["id"], time.Duration(cacheExpire)*time.Second)
 			}
@@ -51,7 +50,7 @@ func GetUserById(uid uint64, field []string) (ret map[string]interface{}, err er
 		ret, err = cacheUser(map[string]interface{}{"id": uid}, field)
 		if err != nil {
 			global.IceRedis.HSet(userCacheKey+strconv.FormatUint(uid, 10), "ID", 0)
-			global.IceRedis.Expire(userCacheKey+strconv.FormatUint(uid, 10), time.Duration(rand.Intn(20)+20)*time.Second)
+			global.IceRedis.Expire(userCacheKey+strconv.FormatUint(uid, 10), time.Duration(helper.RandInt(20)+20)*time.Second)
 		}
 	} else {
 		ret = helper.Slice2Map(field, redisCache)
@@ -75,12 +74,13 @@ func CreateUser(u *entity.User) (err error) {
  */
 func cacheUser(where map[string]interface{}, field []string) (map[string]interface{}, error) {
 	res, err := dao.GetUserByWhere(where)
+	var ret map[string]interface{}
 	if err == nil {
 		global.IceRedis.HMSet(userCacheKey+strconv.FormatUint(res["id"].(uint64), 10), res)
-	}
-	ret := make(map[string]interface{}, len(field))
-	for _, v := range field {
-		ret[v] = helper.MakeVal2Str(res[v])
+		ret = make(map[string]interface{}, len(field))
+		for _, v := range field {
+			ret[v] = helper.MakeVal2Str(res[v])
+		}
 	}
 	return ret, err
 }
