@@ -135,9 +135,9 @@ func CreateDir(dirs ...string) (err error) {
 	return err
 }
 
-func RandInt(n int) int {
+func RandRangeInt(start int64, end int64) int64 {
 	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(n)
+	return rand.Int63n(end) + start
 }
 
 func Struct2Map(obj interface{}) map[string]interface{} {
@@ -248,12 +248,14 @@ func Map2Struct(data map[string]string, s interface{}) error {
 }
 
 func Slice2Struct(key []string, val []interface{}, s interface{}) error {
-	sv := reflect.ValueOf(s).Elem()
+	sv := reflect.ValueOf(s)
+	if sv.Type().Kind() == reflect.Ptr {
+		sv = sv.Elem()
+	}
 	if !sv.CanAddr() {
 		return fmt.Errorf("must be a pointer")
 	}
 	for k, v := range val {
-		fmt.Println(Ucfirst(Case2Camel(key[k])))
 		fieldInfo, _ := sv.Type().FieldByName(Ucfirst(Case2Camel(key[k])))
 		fi := sv.FieldByName(fieldInfo.Name)
 		if !fi.CanSet() {

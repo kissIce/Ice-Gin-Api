@@ -18,16 +18,16 @@ const (
 	phone2UidKey = "userPhone:"
 )
 
-func GetUserByPhone(phone string, field []string) (ret map[string]interface{}, err error) {
+func GetUserByPhone(phone string, field []string) (ret *entity.User, err error) {
 	var uid string
 	uid, err = global.IceRedis.Get(phone2UidKey + phone).Result()
 	if err != nil {
 		if errors.Is(err, redis.Nil) {
-			ret, err = cacheUser(map[string]interface{}{"phone": phone}, append(field, "id"))
+			ret, err = cacheUser(map[string]interface{}{"phone": phone})
 			if err != nil {
-				global.IceRedis.Set(phone2UidKey+phone, 0, time.Duration(helper.RandInt(20)+20)*time.Second)
+				global.IceRedis.Set(phone2UidKey+phone, 0, time.Duration(helper.RandRangeInt(10, 60))*time.Second)
 			} else {
-				global.IceRedis.Set(phone2UidKey+phone, ret["id"], time.Duration(cacheExpire)*time.Second)
+				global.IceRedis.Set(phone2UidKey+phone, ret.Id, time.Duration(cacheExpire)*time.Second)
 			}
 		}
 	} else {
@@ -44,18 +44,20 @@ func GetUserByPhone(phone string, field []string) (ret map[string]interface{}, e
 /**
  * 根据用户id从缓存查找用户数据
  */
-func GetUserById(uid uint64, field []string) (ret map[string]interface{}, err error) {
+func GetUserById(uid uint64, field []string) (*entity.User, error) {
+	var ret = new(entity.User)
+	var err error
 	redisCache := global.IceRedis.HMGet(userCacheKey+strconv.FormatUint(uid, 10), field...).Val()
 	if redisCache[0] == nil {
-		ret, err = cacheUser(map[string]interface{}{"id": uid}, field)
+		ret, err = cacheUser(map[string]interface{}{"id": uid})
 		if err != nil {
 			global.IceRedis.HSet(userCacheKey+strconv.FormatUint(uid, 10), "ID", 0)
-			global.IceRedis.Expire(userCacheKey+strconv.FormatUint(uid, 10), time.Duration(helper.RandInt(20)+20)*time.Second)
+			global.IceRedis.Expire(userCacheKey+strconv.FormatUint(uid, 10), time.Duration(helper.RandRangeInt(10, 99))*time.Second)
 		}
 	} else {
-		ret = helper.Slice2Map(field, redisCache)
+		err = helper.Slice2Struct(field, redisCache, ret)
 	}
-	return
+	return ret, err
 }
 
 /**
@@ -72,15 +74,10 @@ func CreateUser(u *entity.User) (err error) {
 /**
  * 获取并缓存用户信息返回指定字段
  */
-func cacheUser(where map[string]interface{}, field []string) (map[string]interface{}, error) {
-	res, err := dao.GetUserByWhere(where)
-	var ret map[string]interface{}
+func cacheUser(where map[string]interface{}) (*entity.User, error) {
+	u, err := dao.GetUserByWhere(where)
 	if err == nil {
-		global.IceRedis.HMSet(userCacheKey+strconv.FormatUint(res["id"].(uint64), 10), res)
-		ret = make(map[string]interface{}, len(field))
-		for _, v := range field {
-			ret[v] = helper.MakeVal2Str(res[v])
-		}
+		global.IceRedis.HMSet(userCacheKey+strconv.FormatUint(u.Id, 10), helper.Struct2Map(u))
 	}
-	return ret, err
+	return u, err
 }
