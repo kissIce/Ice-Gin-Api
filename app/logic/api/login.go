@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"ice/app/model/data"
-	"ice/app/model/entity"
 	apiResponse "ice/app/model/response/api"
 	"ice/app/service"
 	"ice/helper"
@@ -14,10 +13,8 @@ import (
 	"time"
 )
 
-var err error
-
-func LoginByPhone(u *entity.User) *response.Resp {
-	u, err = data.GetUserByPhone(u.Phone, []string{"phone", "id", "username", "avatar", "im_acc", "im_pwd", "deleted_at", "status"})
+func LoginByPhone(phone string) *response.Resp {
+	u, err := data.GetUserByPhone(phone, []string{"phone", "id", "username", "avatar", "im_acc", "im_pwd", "deleted_at", "status"})
 	if err != nil {
 		if !errors.Is(err, gorm.ErrRecordNotFound) {
 			return response.InitErrCode(response.DbError)
@@ -28,13 +25,14 @@ func LoginByPhone(u *entity.User) *response.Resp {
 		}
 		// 注册im账号
 		go func() {
-			bool, _ := service.ImReg(&service.ImInfo{
-				Identifier: strconv.FormatUint(u.Id, 10) + "_" + strconv.FormatInt(time.Now().Unix(), 10),
+			imAcc := strconv.FormatUint(u.Id, 10) + "_" + strconv.FormatInt(time.Now().Unix(), 10)
+			ret, _ := service.ImReg(&service.ImInfo{
+				Identifier: imAcc,
 				Nick:       u.Username,
 				FaceUrl:    u.Avatar,
 			})
-			if bool {
-
+			if ret {
+				data.UpdateUserById(u.Id, map[string]interface{}{"im_acc": imAcc, "im_pwd": helper.SafeMd5(strconv.FormatUint(u.Id, 10) + u.Phone)})
 			}
 		}()
 	}

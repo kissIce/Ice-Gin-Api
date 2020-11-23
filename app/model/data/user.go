@@ -13,21 +13,20 @@ import (
 )
 
 const (
-	cacheExpire = 7 * 3600 * 24
 	userCacheKey = "userInfo:"
-	phone2UidKey = "userPhone:"
+	userPhoneKey = "userPhone:"
 )
 
 func GetUserByPhone(phone string, field []string) (ret *entity.User, err error) {
 	var uid string
-	uid, err = global.IceRedis.Get(phone2UidKey + phone).Result()
+	uid, err = global.IceRedis.Get(userPhoneKey + phone).Result()
 	if err != nil {
 		if errors.Is(err, redis.Nil) {
 			ret, err = cacheUser(map[string]interface{}{"phone": phone})
 			if err != nil {
-				global.IceRedis.Set(phone2UidKey+phone, 0, time.Duration(helper.RandRangeInt(10, 60))*time.Second)
+				global.IceRedis.Set(userPhoneKey+phone, 0, time.Duration(helper.RandRangeInt(10, 60))*time.Second)
 			} else {
-				global.IceRedis.Set(phone2UidKey+phone, ret.Id, time.Duration(cacheExpire)*time.Second)
+				global.IceRedis.Set(userPhoneKey+phone, ret.Id, time.Duration(7 * 3600 * 24)*time.Second)
 			}
 		}
 	} else {
@@ -66,9 +65,13 @@ func GetUserById(uid uint64, field []string) (*entity.User, error) {
 func CreateUser(u *entity.User) (err error) {
 	err = dao.CreateUser(u)
 	if err == nil {
-		global.IceRedis.Del(phone2UidKey+u.Phone)
+		global.IceRedis.Del(userPhoneKey+u.Phone)
 	}
 	return
+}
+
+func UpdateUserById(uid uint64, data map[string]interface{}) error {
+	return dao.UpdateUserById(uid, data)
 }
 
 /**

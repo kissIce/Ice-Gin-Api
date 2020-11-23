@@ -39,6 +39,6 @@ func initServer(addr string, gen *gin.Engine) server {
 	s := endless.NewServer(addr, gen)
 	s.ReadHeaderTimeout = 10 * time.Millisecond
 	s.WriteTimeout = 10 * time.Second
-	s.MaxHeaderBytes = 5 << 20
+	s.MaxHeaderBytes = 1 << 20
 	return s
 }
