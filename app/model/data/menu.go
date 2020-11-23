@@ -30,5 +30,6 @@ func EditMenu(menu *entity.Menu) error {
 }
 
 func DelMenu(menu *entity.Menu) error {
+
 	return dao.DelMenu(menu)
 }

@@ -61,9 +61,9 @@ func config(b bool) (cfg *gorm.Config) {
 
 func initDb() {
 	global.IceDb.AutoMigrate(
-		//entity.AuthMenu{},
 		entity.Menu{},
 		entity.Role{},
+		entity.AuthApi{},
 	)
 }
 

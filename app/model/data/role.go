@@ -14,7 +14,7 @@ func GetRoleTree() (roleList []entity.Role) {
 	return roleList
 }
 
-func GetRoleMenu(roleId uint64) (*entity.Role, error) {
+func GetRoleMenu(roleId uint64) ([]entity.Menu, error) {
 	return dao.GetRoleMenu(roleId)
 }
 

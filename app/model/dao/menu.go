@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"gorm.io/gorm"
 	"ice/app/model/entity"
 	"ice/global"
 	"time"
@@ -27,5 +28,13 @@ func EditMenu(menu *entity.Menu) error {
 }
 
 func DelMenu(menu *entity.Menu) error {
-	return global.IceDb.Model(menu).Where("id = ?", menu.Id).Update("deleted_at", time.Now().Unix()).Error
+	return global.IceDb.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(menu).Update("deleted_at", time.Now().Unix()).Error; err != nil {
+			return err
+		}
+		if err := tx.Model(menu).Association("Roles").Clear(); err != nil {
+			return err
+		}
+		return nil
+	})
 }
