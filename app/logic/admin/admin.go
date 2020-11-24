@@ -34,3 +34,4 @@ func LoginByPhone(r *adminRequest.LoginAdmin) *response.Resp {
 	rsp.Token, _ = jwt.CreateToken(service.InitClaims(gin.H{"id": admin.Id}, 3*24*3600))
 	return response.InitSucc(rsp)
 }
+

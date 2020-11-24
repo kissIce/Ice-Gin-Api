@@ -3,6 +3,7 @@ package admin
 import (
 	"ice/app/model/data"
 	"ice/app/model/entity"
+	adminRequest "ice/app/model/request/admin"
 	"ice/utils/response"
 )
 
@@ -15,7 +16,7 @@ func GetRoleList() *response.Resp {
 }
 
 /**
- * 获取角色列表
+ * 获取角色菜单
  */
 func GetRoleMenu(roleId uint64) *response.Resp {
 	role, _ := data.GetRoleMenu(roleId)
@@ -25,7 +26,11 @@ func GetRoleMenu(roleId uint64) *response.Resp {
 /**
  * 新增角色
  */
-func AddRole(role *entity.Role) *response.Resp {
+func AddRole(r *adminRequest.AddRole) *response.Resp {
+	role := &entity.Role{
+		Pid:  r.Pid,
+		Name: r.Name,
+	}
 	err := data.AddRole(role)
 	if err != nil {
 		return response.InitErrCode(response.DbError)
@@ -36,7 +41,11 @@ func AddRole(role *entity.Role) *response.Resp {
 /**
  * 编辑角色
  */
-func EditRole(role *entity.Role) *response.Resp {
+func EditRole(r *adminRequest.EditRole) *response.Resp {
+	role := &entity.Role{
+		Id:   r.Id,
+		Name: r.Name,
+	}
 	err := data.EditRole(role)
 	if err != nil {
 		return response.InitErrCode(response.DbError)
@@ -47,7 +56,10 @@ func EditRole(role *entity.Role) *response.Resp {
 /**
  * 删除角色
  */
-func DelRole(role *entity.Role) *response.Resp {
+func DelRole(r *adminRequest.IdReq) *response.Resp {
+	role := &entity.Role{
+		Id:   r.Id,
+	}
 	err := data.DelRole(role)
 	if err != nil {
 		return response.InitErrCode(response.DbError)

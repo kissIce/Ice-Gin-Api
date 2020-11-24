@@ -8,41 +8,40 @@ import (
 	"ice/utils/response"
 )
 
-
-func GetMenuList(c *gin.Context) {
-	resp := adminLogic.GetMenuList()
+func GetApiList(c *gin.Context) {
+	resp := adminLogic.GetApiList()
 	response.Ret(resp, c)
 }
 
-func AddMenu(c *gin.Context) {
-	var r adminRequest.AddMenu
+func AddApi(c *gin.Context) {
+	var r adminRequest.AddApi
 	if err := c.ShouldBind(&r); err != nil {
 		response.Ret(response.InitErrMsg(err.Error()), c)
 	} else if err := gvalid.CheckStruct(&r, nil); err != nil {
 		response.Ret(response.InitErrMsg(err.FirstString()), c)
 	}
-	resp := adminLogic.AddMenu(&r)
+	resp := adminLogic.AddApi(&r)
 	response.Ret(resp, c)
 }
 
-func EditMenu(c *gin.Context) {
-	var r adminRequest.EditMenu
+func EditApi(c *gin.Context) {
+	var r adminRequest.EditApi
 	if err := c.ShouldBind(&r); err != nil {
 		response.Ret(response.InitErrMsg(err.Error()), c)
 	} else if err := gvalid.CheckStruct(&r, nil); err != nil {
 		response.Ret(response.InitErrMsg(err.FirstString()), c)
 	}
-	resp := adminLogic.EditMenu(&r)
+	resp := adminLogic.EditApi(&r)
 	response.Ret(resp, c)
 }
 
-func DelMenu(c *gin.Context) {
+func DelApi(c *gin.Context) {
 	var r adminRequest.IdReq
 	if err := c.ShouldBind(&r); err != nil {
 		response.Ret(response.InitErrMsg(err.Error()), c)
 	} else if err := gvalid.CheckStruct(&r, nil); err != nil {
 		response.Ret(response.InitErrMsg(err.FirstString()), c)
 	}
-	resp := adminLogic.DelMenu(&r)
+	resp := adminLogic.DelApi(&r)
 	response.Ret(resp, c)
 }

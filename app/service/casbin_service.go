@@ -31,4 +31,16 @@ func ParamsMatch(args ...interface{}) (interface{}, error) {
 	return util.KeyMatch2(key1, arg2), nil
 }
 
+func UpdateCasbin(oldPath string, newPath string, oldMethod string, newMethod string) error {
+	err := global.IceDb.Table(global.IceConfig.Casbin.TableName).Where("v1 = ? AND v2 = ?", oldPath, oldMethod).Updates(map[string]interface{}{
+		"v1": newPath,
+		"v2": newMethod,
+	}).Error
+	return err
+}
 
+func ClearCasbin(v int, p ...string) bool {
+	e := Casbin()
+	success, _ := e.RemoveFilteredPolicy(v, p...)
+	return success
+}

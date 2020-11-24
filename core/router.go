@@ -15,6 +15,7 @@ func initRouter() (Router *gin.Engine) {
 	router.InitAdminBase(group) // 初始化后台基础路由
 	router.InitMenu(group)      // 初始化后台菜单路由
 	router.InitRole(group)      // 初始化后台角色路由
+	router.InitApi(group)       // 初始化后台api路由
 	// 注册没命中路由
 	Router.NoRoute(func(c *gin.Context) {
 		response.Ret(response.InitErrCode(response.RouteNotfound), c)

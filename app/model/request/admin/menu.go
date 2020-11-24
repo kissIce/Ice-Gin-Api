@@ -14,12 +14,8 @@ type AddMenu struct {
 }
 
 type EditMenu struct {
-	Id uint64 `json:"id" form:"id"`
+	IdReq
 	AddMenu
-}
-
-type DelMenu struct {
-	Id uint64 `json:"id" form:"id"`
 }
 
 type RoleMenu struct {
