@@ -60,27 +60,35 @@ func GetAdminById(uid uint64, field []string) (*entity.Admin, error) {
 }
 
 /**
+ * 获取并缓存用户信息返回指定字段
+ */
+func cacheAdmin(where map[string]interface{}) (*entity.Admin, error) {
+	admin, err := dao.GetAdmin(where)
+	if err == nil {
+		global.IceRedis.HMSet(adminCacheKey+strconv.FormatUint(admin.Id, 10), helper.Struct2Map(admin))
+	}
+	return admin, err
+}
+
+func GetAdminList() (adminList []entity.Admin, err error) {
+	return dao.GetAdminList()
+}
+
+/**
  * 创建用户并删除请求缓存
  */
-func CreateAdmin(u *entity.Admin) (err error) {
-	err = dao.CreateAdmin(u)
+func AddAdmin(u *entity.Admin) (err error) {
+	err = dao.AddAdmin(u)
 	if err == nil {
 		global.IceRedis.Del(adminPhoneKey+u.Phone)
 	}
 	return
 }
 
-func UpdateAdminById(uid uint64, data map[string]interface{}) error {
-	return dao.UpdateUserById(uid, data)
+func EditAdmin(admin *entity.Admin) error {
+	return dao.EditAdmin(admin)
 }
 
-/**
- * 获取并缓存用户信息返回指定字段
- */
-func cacheAdmin(where map[string]interface{}) (*entity.Admin, error) {
-	admin, err := dao.GetAdminByWhere(where)
-	if err == nil {
-		global.IceRedis.HMSet(adminCacheKey+strconv.FormatUint(admin.Id, 10), helper.Struct2Map(admin))
-	}
-	return admin, err
+func DelAdmin(admin *entity.Admin) error {
+	return dao.DelAdmin(admin)
 }

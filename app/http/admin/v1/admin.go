@@ -9,29 +9,29 @@ import (
 )
 
 func GetAdminList(c *gin.Context) {
-	resp := adminLogic.GetApiList()
+	resp := adminLogic.GetAdminList()
 	response.Ret(resp, c)
 }
 
 func AddAdmin(c *gin.Context) {
-	var r adminRequest.AddApi
+	var r adminRequest.AddAdmin
 	if err := c.ShouldBind(&r); err != nil {
 		response.Ret(response.InitErrMsg(err.Error()), c)
 	} else if err := gvalid.CheckStruct(&r, nil); err != nil {
 		response.Ret(response.InitErrMsg(err.FirstString()), c)
 	}
-	resp := adminLogic.AddApi(&r)
+	resp := adminLogic.AddAdmin(&r)
 	response.Ret(resp, c)
 }
 
 func EditAdmin(c *gin.Context) {
-	var r adminRequest.EditApi
+	var r adminRequest.EditAdmin
 	if err := c.ShouldBind(&r); err != nil {
 		response.Ret(response.InitErrMsg(err.Error()), c)
 	} else if err := gvalid.CheckStruct(&r, nil); err != nil {
 		response.Ret(response.InitErrMsg(err.FirstString()), c)
 	}
-	resp := adminLogic.EditApi(&r)
+	resp := adminLogic.EditAdmin(&r)
 	response.Ret(resp, c)
 }
 
@@ -42,6 +42,6 @@ func DelAdmin(c *gin.Context) {
 	} else if err := gvalid.CheckStruct(&r, nil); err != nil {
 		response.Ret(response.InitErrMsg(err.FirstString()), c)
 	}
-	resp := adminLogic.DelApi(&r)
+	resp := adminLogic.DelAdmin(&r)
 	response.Ret(resp, c)
 }
