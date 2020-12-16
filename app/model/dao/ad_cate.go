@@ -6,24 +6,24 @@ import (
 	"time"
 )
 
-func GetAdmin(where map[string]interface{}) (ent *entity.Admin, err error) {
+func GetAdCate(where map[string]interface{}) (ent *entity.AdCate, err error) {
 	err = global.IceDb.Where(where).First(&ent).Error
 	return ent, err
 }
 
-func GetAdminList() (ents []entity.Admin, err error) {
+func GetAdCateList() (ents []entity.AdCate, err error) {
 	err = global.IceDb.Find(&ents).Error
 	return
 }
 
-func AddAdmin(ent *entity.Admin) error {
+func AddAdCate(ent *entity.AdCate) error {
 	return global.IceDb.Create(&ent).Error
 }
 
-func EditAdmin(ent *entity.Admin) error {
+func EditAdCate(ent *entity.AdCate) error {
 	return global.IceDb.Updates(ent).Error
 }
 
-func DelAdmin(ent *entity.Admin) error {
+func DelAdCate(ent *entity.AdCate) error {
 	return global.IceDb.Model(ent).Where("id = ?", ent.Id).Update("deleted_at", time.Now().Unix()).Error
 }

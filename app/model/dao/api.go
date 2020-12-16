@@ -6,25 +6,25 @@ import (
 	"ice/global"
 )
 
-func GetApiList() (apis []entity.Api, err error) {
-	err = global.IceDb.Find(&apis).Error
+func GetApiList() (ents []entity.Api, err error) {
+	err = global.IceDb.Find(&ents).Error
 	return
 }
 
-func AddApi(api *entity.Api) error {
-	return global.IceDb.Create(api).Error
+func AddApi(ent *entity.Api) error {
+	return global.IceDb.Create(ent).Error
 }
 
-func EditApi(api *entity.Api) (err error) {
+func EditApi(ent *entity.Api) (err error) {
 	var old entity.Api
-	db := global.IceDb.Model(api).Select([]string{"path", "method"}).Where("id = ?", api.Id).First(&old)
-	err = db.Updates(api).Error
-	err = service.UpdateCasbin(old.Path, api.Path, old.Method, api.Method)
+	db := global.IceDb.Model(ent).Select([]string{"path", "method"}).Where("id = ?", ent.Id).First(&old)
+	err = db.Updates(ent).Error
+	err = service.UpdateCasbin(old.Path, ent.Path, old.Method, ent.Method)
 	return
 }
 
-func DelApi(api *entity.Api) (err error) {
-	err = global.IceDb.Delete(api).Error
-	service.ClearCasbin(1, api.Path, api.Method)
+func DelApi(ent *entity.Api) (err error) {
+	err = global.IceDb.Delete(ent).Error
+	service.ClearCasbin(1, ent.Path, ent.Method)
 	return err
 }
