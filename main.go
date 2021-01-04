@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	core.RunServer()
 
+	core.RunServer()
 }
