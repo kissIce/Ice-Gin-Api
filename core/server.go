@@ -5,6 +5,7 @@ import (
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"ice/app/ws"
 	"ice/global"
 	"ice/utils/snowflake"
 	"time"
@@ -15,11 +16,13 @@ type server interface {
 }
 
 func RunServer()  {
+	// 启用websocket 路由在initRouter里面进行初始化
+	go ws.Manager.Start()
 	// 初始化数据库
-	initDB()
-	if global.IceConfig.System.Cache {
-		initCache()
-	}
+	//initDB()
+	//if global.IceConfig.System.Cache {
+	//	initCache()
+	//}
 	// 初始化雪花算法
 	global.IceSnowflake, _ = snowflake.NewWorker(global.IceConfig.SnowFlake.Workid)
 	// 初始化路由
@@ -31,8 +34,8 @@ func RunServer()  {
 	global.IceLog.Info("server run success on ", zap.String("address", addr))
 	global.IceLog.Error(s.ListenAndServe().Error())
 	// 程序结束前关闭数据库
-	db, _ := global.IceDb.DB()
-	defer db.Close()
+	//db, _ := global.IceDb.DB()
+	//defer db.Close()
 }
 
 func initServer(addr string, gen *gin.Engine) server {
